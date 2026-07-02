@@ -607,6 +607,71 @@ function setLang(lang) {
   selectedLanguage = lang
   devConsole.log(`[SUCCESS] Dil değiştirildi: ${lang.toUpperCase()}`, 'success')
   devConsole.log(`[INFO] ${languageMessages[lang].welcome}`, 'success')
+  devConsole.log('', 'info')
+
+  // Her dile göre örnek kod başlat
+  setTimeout(() => startLanguageExample(lang), 500)
+}
+
+function startLanguageExample(lang) {
+  const examples = {
+    python: [
+      '>>> # Python ile programlamaya başladın',
+      '>>> print("Merhaba, Kodun Karanlık Tarafı")',
+      'Merhaba, Kodun Karanlık Tarafı',
+      '>>> ',
+      '>>> # Hadi bir şeyler yapalım',
+      '>>> import sys',
+      '>>> print(f"Python {sys.version.split()[0]} aktif")',
+      'Python 3.11.0 aktif',
+      '>>> ',
+    ],
+    javascript: [
+      '> // JavaScript ile merhaba deyin',
+      '> console.log("Merhaba, Kodun Karanlık Tarafı")',
+      'Merhaba, Kodun Karanlık Tarafı',
+      '> ',
+      '> // Değişken oluşturalım',
+      '> const message = "Ruhum sattım";',
+      'undefined',
+      '> console.log(message)',
+      'Ruhum sattım',
+      '> ',
+    ],
+    rust: [
+      '❯ // Rust güvenliği ile başlıyoruz',
+      '❯ fn main() {',
+      '❯     println!("Merhaba, Kodun Karanlık Tarafı");',
+      '❯ }',
+      '❯ ',
+      '❯ // Compile et',
+      '❯ rustc main.rs',
+      '❯ ./main',
+      'Merhaba, Kodun Karanlık Tarafı',
+      '❯ ',
+    ],
+    go: [
+      '$ // Go ile hızlı başlangıç',
+      '$ package main',
+      '$ import "fmt"',
+      '$ func main() {',
+      '$     fmt.Println("Merhaba, Kodun Karanlık Tarafı")',
+      '$ }',
+      '$ ',
+      '$ // Çalıştır',
+      '$ go run main.go',
+      'Merhaba, Kodun Karanlık Tarafı',
+      '$ ',
+    ]
+  }
+
+  const codes = examples[lang] || examples.python
+  let delay = 0
+
+  codes.forEach((line, idx) => {
+    delay += (idx === 0 ? 400 : 300)
+    setTimeout(() => devConsole.log(line, 'info'), delay)
+  })
 }
 
 // Developer Console Functions
