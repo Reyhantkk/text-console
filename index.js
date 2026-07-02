@@ -599,6 +599,9 @@ const languageMessages = {
 }
 
 function setLang(lang) {
+  // Küçük harfe çevir ve whitespace temizle
+  lang = lang.toString().toLowerCase().trim()
+
   const validLangs = ['python', 'javascript', 'rust', 'go']
   if (!validLangs.includes(lang)) {
     devConsole.log(`[ERROR] Bilinmeyen dil: ${lang}`, 'error')
@@ -612,6 +615,17 @@ function setLang(lang) {
   // Her dile göre örnek kod başlat
   setTimeout(() => startLanguageExample(lang), 500)
 }
+
+// Shorthand komutlar
+function python() { setLang('python') }
+function javascript() { setLang('javascript') }
+function rust() { setLang('rust') }
+function go() { setLang('go') }
+
+// Alias'ler
+const js = javascript
+const py = python
+const rs = rust
 
 function startLanguageExample(lang) {
   const examples = {
@@ -811,16 +825,22 @@ function toggleDevTools() {
 function help() {
   devConsole.log('░░░░░░░░░░░░ [CLASSIFIED] COMMAND REFERENCE ░░░░░░░░░░░░', 'info')
   devConsole.log('', 'info')
-  devConsole.log('[EXEC] help() ..................... Access this documentation', 'info')
-  devConsole.log('[EXEC] clear() ................... Erase all traces from memory', 'info')
-  devConsole.log('[EXEC] renderer.render() ......... Force frame synchronization', 'info')
-  devConsole.log('[EXEC] editor.text .............. Read/write shader bytecode', 'info')
-  devConsole.log('[EXEC] elapsedTime .............. Query temporal displacement', 'info')
-  devConsole.log('[EXEC] playOnLoad ............... Toggle auto-execution state', 'info')
-  devConsole.log('[EXEC] play() ................... Resume render sequence', 'info')
-  devConsole.log('[EXEC] stop() ................... Halt render sequence', 'info')
+  devConsole.log('[LANGUAGE SELECTION]', 'info')
+  devConsole.log('  setLang("python")     or  python()  or  py()', 'info')
+  devConsole.log('  setLang("javascript") or  javascript()  or  js()', 'info')
+  devConsole.log('  setLang("rust")       or  rust()', 'info')
+  devConsole.log('  setLang("go")         or  go()', 'info')
   devConsole.log('', 'info')
-  devConsole.log('[TIP] Use arrow keys to navigate command history', 'info')
-  devConsole.log('[TIP] Combine commands: renderer.render(); play();', 'info')
+  devConsole.log('[CONSOLE COMMANDS]', 'info')
+  devConsole.log('  help() ...................... Access this documentation', 'info')
+  devConsole.log('  clear() ..................... Erase all traces from memory', 'info')
+  devConsole.log('  renderer.render() .......... Force frame synchronization', 'info')
+  devConsole.log('  play() / stop() ............ Resume/halt render sequence', 'info')
+  devConsole.log('', 'info')
+  devConsole.log('[TIPS]', 'info')
+  devConsole.log('  • Arrow keys: Navigate command history', 'info')
+  devConsole.log('  • PYTHON, JAVASCRIPT gibi yazabilirsin (case insensitive)', 'info')
+  devConsole.log('  • Shorthand: py(), js() kullanabilirsin', 'info')
+  devConsole.log('', 'info')
   devConsole.log('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', 'info')
 }
